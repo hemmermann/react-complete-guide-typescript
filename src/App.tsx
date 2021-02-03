@@ -2,68 +2,85 @@ import React from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-
-interface PersonArr{
-  name: string,
-  age: number
+interface PersonArr {
+  name: string;
+  age: number;
 }
 
 interface IMyState {
-  count: number,
-  persons: PersonArr[],
-  otherState: string,
+  count: number;
+  persons: PersonArr[];
+  otherState: string;
 }
 
-class App extends React.Component<{},IMyState> {
-  state = {
-    // optional second annotation for better type inference
+const App: React.FC<{}> = (props) => {
+  const [personsState, setPersonsState] = React.useState({
     count: 0,
     persons: [
       {
-        name: 'Max',
-        age: 13
-      },{
-        name: 'Maxima',
-        age: 43
-      },{
-        name: 'Regola',
-        age: 34
+        name: "Max",
+        age: 13,
+      },
+      {
+        name: "Maxima",
+        age: 43,
+      },
+      {
+        name: "Regola",
+        age: 34,
       },
     ],
-    otherState: 'other value'
-  };
+    otherState: "other value",  
+  });
 
-  switchNameHandler = () => {
-    console.log('Was clicked!');
-    this.setState({
+
+  const switchNameHandler = () => {
+    console.log("Was clicked!");
+    setPersonsState({
+      count: 12,
       persons: [
         {
-          name: 'Maximilian',
-          age: 41
-        },{
-          name: 'Maxima',
-          age: 43
-        },{
-          name: 'Regola',
-          age: 34
+          name: "Maximilian",
+          age: 41,
         },
-      ]
-    })
-  }
+        {
+          name: "Maxima",
+          age: 43,
+        },
+        {
+          name: "Regola",
+          age: 34,
+        },
+      ],
+      otherState: personsState.otherState
+    });
+  };
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.switchNameHandler}>Switch Name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >
-          My hobbies: football
-        </Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
-        {this.state.count}
-      </div>
-    );
-  }
-}
+  const [otherState, setOtherState] = React.useState('string');
+
+  console.log(personsState,otherState);
+
+  return (
+    <div>
+      <button onClick={switchNameHandler}>Switch Name</button>
+      <Person
+        name={personsState.persons[0].name}
+        age={personsState.persons[0].age}
+      />
+      <Person
+        name={personsState.persons[1].name}
+        age={personsState.persons[1].age}
+      >
+        My hobbies: football
+      </Person>
+      <Person
+        name={personsState.persons[2].name}
+        age={personsState.persons[2].age}
+      />
+      personsState
+      {personsState.count}
+    </div>
+  );
+};
 
 export default App;
