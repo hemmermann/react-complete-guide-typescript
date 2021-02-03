@@ -1,8 +1,12 @@
 import React, { FunctionComponent } from "react";
+import './Person.css';
 
-interface PersonProps {
+interface Props {
   name: string;
   age: number;
+  click?: (name: string) => void;
+  changed?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  children?: React.ReactNode;
 }
 
 // const person: React.FC<Props> = (props) => {
@@ -16,12 +20,14 @@ interface PersonProps {
 //   );
 // };
 
-const Person: FunctionComponent<PersonProps> = (props) => <aside>
-     <div>
-          <p>
-            I`m a {props.name} my age is {props.age} !
+export const Person = ({name,age,click,changed,children} : Props) => <aside>
+     <div className="Person">
+          <p onClick={() => click}>
+            I`m a {name} my age is {age} !
           </p>
-          <p>{props.children}</p>
+          <p>{children}</p>
+          <input type="text" onChange={changed} value={name} />
         </div>
 </aside>
+
 export default Person;
