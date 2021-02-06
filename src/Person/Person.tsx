@@ -1,27 +1,24 @@
-import React, { FunctionComponent } from "react";
+import React, { ChangeEvent, FunctionComponent, ReactNode } from "react";
 
-interface PersonProps {
+import "./Person.css";
+
+interface Props {
   name: string;
   age: number;
+  click?: () => void;
+  changed?: (event: ChangeEvent<HTMLInputElement>) => void;
+  children?: ReactNode;
 }
 
-// const person: React.FC<Props> = (props) => {
-//   return (
-//     <div>
-//       <p>
-//         I`m a {props.name} my age is {props.age} !
-//       </p>
-//       <p>{props.children}</p>
-//     </div>
-//   );
-// };
-
-const Person: FunctionComponent<PersonProps> = (props) => <aside>
-     <div>
-          <p>
-            I`m a {props.name} my age is {props.age} !
-          </p>
-          <p>{props.children}</p>
-        </div>
-</aside>
+const Person = (props: Props) => {
+  return(
+  <div className="Person">
+    <p onClick={props.click}>
+      I'm {props.name} and I am {props.age} years old!
+    </p>
+    <p>{props.children}</p>
+    <input type="text" onChange={props.changed} value={props.name} />
+  </div>
+  );
+};
 export default Person;
